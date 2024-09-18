@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AddressSearchBar } from '../address-search-bar/address-search-bar.component';
+import { AddressSearchBar } from './address-search-bar/address-search-bar.component';
 
 @Component({
   selector: 'app-root',
