@@ -1,7 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { LoadAddressSuggestions, LoadAddressSuggestionsSuccess, LoadAddressSuggestionsFailure } from './address.actions';
 import { AddressStateModel } from './address.model';
@@ -16,13 +16,15 @@ import { AddressStateModel } from './address.model';
 })
 @Injectable()
 export class AddressState {
+  private apiKey: string = 'API_KEY';
+
   private mockSuggestions = [
     '123 Rue de la Montagne, Montreal, QC',
     '456 Boulevard Saint-Laurent, Montreal, QC',
     '789 Avenue du Mont-Royal, Montreal, QC'
   ];
 
-  // constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   @Selector()
   static suggestions(state: AddressStateModel) {    
@@ -42,8 +44,28 @@ export class AddressState {
         },
         error: err => ctx.dispatch(new LoadAddressSuggestionsFailure(err))
       })
-    );
+    );    
   }
+
+  // @Action(LoadAddressSuggestions)
+  // loadAddressSuggestions1(ctx: StateContext<AddressStateModel>, action: LoadAddressSuggestions) {
+  //   ctx.patchState({ loading: true, error: null });
+
+  //   // Google Places Autocomplete API request
+  //   const apiUrl = 
+  //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(action.query)}&types=address&components=country:ca&key=${this.apiKey}`;
+
+  //   return this.http.get<any>(apiUrl).pipe(
+  //     tap(response => {
+  //       const suggestions = response.predictions.map((prediction: any) => prediction.description);
+  //       ctx.dispatch(new LoadAddressSuggestionsSuccess(suggestions));
+  //     }),
+  //     catchError(err => {
+  //       ctx.dispatch(new LoadAddressSuggestionsFailure(err));
+  //       return of([]);
+  //     })
+  //   );
+  // }
 
   @Action(LoadAddressSuggestionsSuccess)
   loadAddressSuggestionsSuccess(ctx: StateContext<AddressStateModel>, action: LoadAddressSuggestionsSuccess) {
