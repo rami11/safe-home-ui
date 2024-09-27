@@ -1,36 +1,41 @@
-import { Component } from '@angular/core';
-import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
-import { LoadAddressSuggestions } from '../state/address-search-bar/address.actions';
+import { GetAddressInfo } from '../state/address-search-bar/address.actions';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AddressState } from '../state/address-search-bar/address.state';
 
 @Component({
   selector: 'address-search-bar',
   standalone: true,
-  imports: [NgbTypeaheadModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './address-search-bar.component.html',
   styleUrl: './address-search-bar.component.scss',
 })
-export class AddressSearchBar {
-  suggestions$: Observable<string[]>;
+export class AddressSearchBar implements OnInit {
+  address: any;
+  addressJson!: string;
 
-  constructor(private store: Store) {
-    this.suggestions$ = this.store.select(AddressState.suggestions);
+  addressForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private store: Store) {
+    this.store.select(AddressState.address).subscribe(address => {
+      this.address = address;
+      this.addressJson = JSON.stringify(address);
+    });
+
+    this.addressForm = this.fb.group({
+      address: ['', Validators.required]
+    });
   }
 
-  search = (text$: Observable<string>): Observable<string[]> => {
-    return text$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      filter(term => term.length >= 3),
-      switchMap(term => {
-        this.store.dispatch(new LoadAddressSuggestions(term));
-        return this.suggestions$;
-      })
-    );
-  };
+  ngOnInit(): void {
+    
+  }
 
-  formatter = (address: string) => address;
+  onSubmit() {
+    if (this.addressForm.valid) {
+      console.log('Address submitted:', this.addressForm.value);
+      this.store.dispatch(new GetAddressInfo(this.addressForm.value.address));
+    }
+  }
 }
