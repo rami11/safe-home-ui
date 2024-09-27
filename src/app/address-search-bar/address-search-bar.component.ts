@@ -11,17 +11,14 @@ import { AddressState } from '../state/address-search-bar/address.state';
   templateUrl: './address-search-bar.component.html',
   styleUrl: './address-search-bar.component.scss',
 })
-export class AddressSearchBar implements OnInit {
-  address: any;
-  addressJson!: string;
-
+export class AddressSearchBarComponent implements OnInit {
   addressForm: FormGroup;
 
   constructor(private fb: FormBuilder, private store: Store) {
-    this.store.select(AddressState.address).subscribe(address => {
-      this.address = address;
-      this.addressJson = JSON.stringify(address);
-    });
+    // this.store.select(AddressState.address).subscribe(address => {
+    //   this.address = address;
+    //   this.addressJson = JSON.stringify(address);
+    // });
 
     this.addressForm = this.fb.group({
       address: ['', Validators.required]
