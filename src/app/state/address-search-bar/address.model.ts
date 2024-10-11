@@ -1,5 +1,5 @@
 export interface AddressStateModel {
     loading: boolean;
-    error: string | null;
+    error: string | undefined;
     address: any
   }

@@ -8,8 +8,8 @@ import { GetAddressInfo } from './address.actions';
   name: 'address',
   defaults: {
     loading: false,
-    error: null,
-    address: null
+    error: undefined,
+    address: undefined
   }
 })
 @Injectable()
@@ -24,14 +24,12 @@ export class AddressState {
 
   @Action(GetAddressInfo)
   getAddressInfo(ctx: StateContext<AddressStateModel>, action: GetAddressInfo) {
-    ctx.patchState({ loading: true, error: null });
+    ctx.patchState({ loading: true, error: undefined });
 
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(action.query)}&format=json&addressdetails=1&limit=1`;
 
     return this.http.get(url).subscribe({
       next: (response: any) => {
-        console.log('Response:', response);
-
         if (response && response.length > 0) {
           const addressResult = {
             street: response[0].display_name,

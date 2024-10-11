@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngxs/store";
 import { AddressState } from "../state/address-search-bar/address.state";
 import L from "leaflet";
+import { GetHomeSafetyVerdict } from "../state/street-map/street-map.actions";
 
 @Component({
     selector: 'street-map',
@@ -22,13 +23,15 @@ export class StreetMapComponent implements OnInit {
         this.initMap();
 
         this.store.select(AddressState.address).subscribe(address => {
-            console.log('address:', address);
-
             this.address = address;
             this.addressJson = JSON.stringify(address);
 
             if (this.map && this.address) {
+                console.log('store:', this.store);
+                this.store.dispatch(new GetHomeSafetyVerdict(address.lat, address.long));
+                
                 this.addMarker(address.lat, address.long);
+            
             }
         });
     }

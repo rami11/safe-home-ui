@@ -15,23 +15,16 @@ export class AddressSearchBarComponent implements OnInit {
   addressForm: FormGroup;
 
   constructor(private fb: FormBuilder, private store: Store) {
-    // this.store.select(AddressState.address).subscribe(address => {
-    //   this.address = address;
-    //   this.addressJson = JSON.stringify(address);
-    // });
-
     this.addressForm = this.fb.group({
       address: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    
   }
 
   onSubmit() {
     if (this.addressForm.valid) {
-      console.log('Address submitted:', this.addressForm.value);
       this.store.dispatch(new GetAddressInfo(this.addressForm.value.address));
     }
   }
