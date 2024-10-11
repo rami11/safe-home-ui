@@ -3,6 +3,7 @@ import { Store } from "@ngxs/store";
 import { AddressState } from "../state/address-search-bar/address.state";
 import L from "leaflet";
 import { GetHomeSafetyVerdict } from "../state/street-map/street-map.actions";
+import { Address } from "../state/address-search-bar/address.model";
 
 @Component({
     selector: 'street-map',
@@ -13,7 +14,6 @@ import { GetHomeSafetyVerdict } from "../state/street-map/street-map.actions";
 })
 export class StreetMapComponent implements OnInit {
     map: L.Map | undefined;
-    address: any;
 
     constructor(private store: Store) {
     }
@@ -22,14 +22,11 @@ export class StreetMapComponent implements OnInit {
         this.initMap();
 
         this.store.select(AddressState.address).subscribe(address => {
-            this.address = address;
+            if (this.map && address) {
+                const { lat, long } = address;
 
-            if (this.map && this.address) {
-                console.log('store:', this.store);
-                this.store.dispatch(new GetHomeSafetyVerdict(address.lat, address.long));
-                
-                this.addMarker(address.lat, address.long);
-            
+                this.store.dispatch(new GetHomeSafetyVerdict(lat, long));
+                this.addMarker(address);
             }
         });
     }
@@ -37,17 +34,19 @@ export class StreetMapComponent implements OnInit {
     initMap(): void {
         this.map = L.map('map', {
             center: [45, -75],
-            zoom: 13
+            zoom: 7
         });
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 5,
+            maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map);
     }
 
-    addMarker(lat: number, long: number): void {
+    addMarker(address: Address): void {
         if (this.map) {
+            const { lat, long, street } = address;
+
             this.map.eachLayer(layer => {
                 if (layer instanceof L.Marker) {
                     this.map?.removeLayer(layer);
@@ -55,9 +54,9 @@ export class StreetMapComponent implements OnInit {
             });
 
             const marker = L.marker([lat, long]).addTo(this.map);
-            marker.bindPopup(`${this.address.street}`).openPopup();
+            marker.bindPopup(`${street}`).openPopup();
 
-            this.map.setView([lat, long], 13);
+            this.map.setView([lat, long], 18);
         }
     }
 }
