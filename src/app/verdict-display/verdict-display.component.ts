@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngxs/store";
+import { StreetMapState } from "../state/street-map/street-map.state";
 
 @Component({
     selector: 'verdict-display',
@@ -8,7 +10,14 @@ import { Component, OnInit } from "@angular/core";
     styleUrl: './verdict-display.scss',
 })
 export class VerdictDisplayComponent implements OnInit {
+    verdict!: string;
+
+    constructor(private store: Store) {
+    }
+
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
+        this.store.select(StreetMapState.verdict).subscribe(verdict => {
+            this.verdict = verdict;
+        });
     }
 }

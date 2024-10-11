@@ -14,7 +14,6 @@ import { GetHomeSafetyVerdict } from "../state/street-map/street-map.actions";
 export class StreetMapComponent implements OnInit {
     map: L.Map | undefined;
     address: any;
-    addressJson!: string;
 
     constructor(private store: Store) {
     }
@@ -24,7 +23,6 @@ export class StreetMapComponent implements OnInit {
 
         this.store.select(AddressState.address).subscribe(address => {
             this.address = address;
-            this.addressJson = JSON.stringify(address);
 
             if (this.map && this.address) {
                 console.log('store:', this.store);
