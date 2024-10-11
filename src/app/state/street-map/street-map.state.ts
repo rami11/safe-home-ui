@@ -38,7 +38,7 @@ import { tap } from "rxjs";
             if (response) {
               ctx.patchState({
                 loading: false,
-                verdict: response.verdict
+                verdict: response
               });
             } else {
               ctx.patchState({

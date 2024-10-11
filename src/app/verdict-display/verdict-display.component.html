@@ -1,5 +1,48 @@
 @if (verdict) {
-    <div class="alert alert-primary text-center" role="alert">
-        {{verdict}}
+@if (riskDescExists(verdict)) {
+<div class="card mt-4">
+    <div class="card-header text-white bg-primary">
+        <strong>Verdict</strong>
     </div>
+
+    <div class="card-body">
+        <ul class="list-group">
+            @if(verdict.heatDesc) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Heat
+                <span class="badge" [ngClass]="getBadgeClass(verdict.heatDesc)">{{verdict.heatDesc}}</span>
+            </li>
+            }
+            @if(verdict.dryDesc) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Dry
+                <span class="badge" [ngClass]="getBadgeClass(verdict.dryDesc)">{{verdict.dryDesc}}</span>
+            </li>
+            }
+            @if(verdict.stormDesc) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Storm
+                <span class="badge" [ngClass]="getBadgeClass(verdict.stormDesc)">{{verdict.stormDesc}}</span>
+            </li>
+            }
+            @if(verdict.rainDesc) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Rain
+                <span class="badge" [ngClass]="getBadgeClass(verdict.rainDesc)">{{verdict.rainDesc}}</span>
+            </li>
+            }
+            @if(verdict.floodDesc) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Flood
+                <span class="badge" [ngClass]="getBadgeClass(verdict.floodDesc)">{{verdict.floodDesc}}</span>
+            </li>
+            }
+        </ul>
+    </div>
+</div>
+}
+
+<div class="alert alert-primary text-center mt-4" role="alert">
+    {{verdict.verdict}}
+</div>
 }
