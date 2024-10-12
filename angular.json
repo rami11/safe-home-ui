@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "flood-insight": {
+    "safe-home-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/flood-insight",
+            "outputPath": "dist/safe-home-ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "flood-insight:build:production"
+              "buildTarget": "safe-home-ui:build:production"
             },
             "development": {
-              "buildTarget": "flood-insight:build:development"
+              "buildTarget": "safe-home-ui:build:development"
             }
           },
           "defaultConfiguration": "development"

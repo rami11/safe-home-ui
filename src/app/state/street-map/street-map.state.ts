@@ -30,9 +30,6 @@ import { tap } from "rxjs";
         const url = `https://iyt2uy7lvl5zcswo7mczdm77cm0oklyl.lambda-url.us-east-1.on.aws/lat/${action.lat}/long/${action.long}`;
 
         return this.http.get(url)
-        .pipe(
-          tap(response => console.log('Response:', response))
-        )
         .subscribe({
           next: (response: any) => {
             if (response) {
