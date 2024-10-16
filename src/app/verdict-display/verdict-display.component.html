@@ -1,5 +1,5 @@
 @if (verdict) {
-@if (riskDescExists(verdict)) {
+@if (riskValueExists(verdict)) {
 <div class="card mt-4">
     <div class="card-header text-white bg-primary">
         <strong>Risk Info</strong>
@@ -7,34 +7,34 @@
 
     <div class="card-body">
         <ul class="list-group">
-            @if(verdict.heatDesc) {
+            @if(verdict.heatValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Heat
-                <span class="badge" [ngClass]="getBadgeClass(verdict.heatDesc)">{{verdict.heatDesc}}</span>
+                <span class="badge" [ngClass]="getBadgeClass(verdict.heatValue)">{{getRiskDesc(verdict.heatValue)}}</span>
             </li>
             }
-            @if(verdict.dryDesc) {
+            @if(verdict.dryValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Dry
-                <span class="badge" [ngClass]="getBadgeClass(verdict.dryDesc)">{{verdict.dryDesc}}</span>
+                <span class="badge" [ngClass]="getBadgeClass(verdict.dryValue)">{{getRiskDesc(verdict.dryValue)}}</span>
             </li>
             }
-            @if(verdict.stormDesc) {
+            @if(verdict.stormValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Storm
-                <span class="badge" [ngClass]="getBadgeClass(verdict.stormDesc)">{{verdict.stormDesc}}</span>
+                <span class="badge" [ngClass]="getBadgeClass(verdict.stormValue)">{{getRiskDesc(verdict.stormValue)}}</span>
             </li>
             }
-            @if(verdict.rainDesc) {
+            @if(verdict.rainValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Rain
-                <span class="badge" [ngClass]="getBadgeClass(verdict.rainDesc)">{{verdict.rainDesc}}</span>
+                <span class="badge" [ngClass]="getBadgeClass(verdict.rainValue)">{{getRiskDesc(verdict.rainValue)}}</span>
             </li>
             }
-            @if(verdict.floodDesc) {
+            @if(verdict.floodValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Flood
-                <span class="badge" [ngClass]="getBadgeClass(verdict.floodDesc)">{{verdict.floodDesc}}</span>
+                <span class="badge" [ngClass]="getBadgeClass(verdict.floodValue)">{{getRiskDesc(verdict.floodValue)}}</span>
             </li>
             }
         </ul>

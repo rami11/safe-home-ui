@@ -23,23 +23,42 @@ export class VerdictDisplayComponent implements OnInit {
         });
     }
 
-    getBadgeClass(riskDesc: string): string {
-        switch (riskDesc) {
-            case 'Severe':
+    getBadgeClass(riskValue: number): string {
+        switch (riskValue) {
+            case 5:
+                return 'bg-black';
+            case 4:
                 return 'bg-danger';
-            case 'Moderate':
+            case 3:
                 return 'bg-warning';
-            case 'Minor':
+            case 2:
                 return 'bg-info';
-            case 'Not Significant':
+            case 1:
                 return 'bg-success';
             default:
                 return 'bg-secondary';
         }
     }
 
-    riskDescExists(verdict: Verdict): boolean {
-        const { heatDesc, dryDesc, stormDesc, rainDesc, floodDesc } = verdict;
-        return !!(heatDesc && dryDesc && stormDesc && rainDesc && floodDesc);
+    getRiskDesc(riskValue: number): string {
+        switch (riskValue) {
+            case 5:
+                return 'Major Risk';
+            case 4:
+                return 'High Risk';
+            case 3:
+                return 'Moderate Risk';
+            case 2:
+                return 'Minor Risk';
+            case 1:
+                return 'Not Significant Risk';
+            default:
+                return 'Unknown Risk';
+        }
+    }
+
+    riskValueExists(verdict: Verdict): boolean {
+        const { heatValue, dryValue, stormValue, rainValue, floodValue } = verdict;
+        return !!(heatValue && dryValue && stormValue && rainValue && floodValue);
     }
 }
