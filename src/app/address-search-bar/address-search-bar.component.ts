@@ -13,6 +13,7 @@ import { AddressState } from '../state/address-search-bar/address.state';
 })
 export class AddressSearchBarComponent implements OnInit {
   addressForm: FormGroup;
+  loading = false;
 
   constructor(private fb: FormBuilder, private store: Store) {
     this.addressForm = this.fb.group({
@@ -21,6 +22,9 @@ export class AddressSearchBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.select(AddressState.loading).subscribe(loading => {
+      this.loading = loading;
+    });
   }
 
   onSubmit() {

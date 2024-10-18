@@ -4,7 +4,15 @@
         <div class="input-group">
             <input id="address-search" type="text" class="form-control" formControlName="address"
                 placeholder="Enter address" />
-            <button class="btn btn-primary" type="submit" [disabled]="addressForm.invalid">Submit</button>
+            <button style="width: 80px;" class="btn btn-primary" type="submit" [disabled]="addressForm.invalid">
+                @if(loading) {
+                <div class="spinner-border spinner-border-sm text-light" role="status">
+                </div>
+                }
+                @else {
+                Submit
+                }
+            </button>
         </div>
     </div>
 </form>

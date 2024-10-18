@@ -10,7 +10,8 @@
             @if(verdict.heatValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Heat
-                <span class="badge" [ngClass]="getBadgeClass(verdict.heatValue)">{{getRiskDesc(verdict.heatValue)}}</span>
+                <span class="badge"
+                    [ngClass]="getBadgeClass(verdict.heatValue)">{{getRiskDesc(verdict.heatValue)}}</span>
             </li>
             }
             @if(verdict.dryValue) {
@@ -22,19 +23,22 @@
             @if(verdict.stormValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Storm
-                <span class="badge" [ngClass]="getBadgeClass(verdict.stormValue)">{{getRiskDesc(verdict.stormValue)}}</span>
+                <span class="badge"
+                    [ngClass]="getBadgeClass(verdict.stormValue)">{{getRiskDesc(verdict.stormValue)}}</span>
             </li>
             }
             @if(verdict.rainValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Rain
-                <span class="badge" [ngClass]="getBadgeClass(verdict.rainValue)">{{getRiskDesc(verdict.rainValue)}}</span>
+                <span class="badge"
+                    [ngClass]="getBadgeClass(verdict.rainValue)">{{getRiskDesc(verdict.rainValue)}}</span>
             </li>
             }
             @if(verdict.floodValue) {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Flood
-                <span class="badge" [ngClass]="getBadgeClass(verdict.floodValue)">{{getRiskDesc(verdict.floodValue)}}</span>
+                <span class="badge"
+                    [ngClass]="getBadgeClass(verdict.floodValue)">{{getRiskDesc(verdict.floodValue)}}</span>
             </li>
             }
         </ul>
@@ -44,5 +48,11 @@
 
 <div class="alert alert-primary text-center mt-4" role="alert">
     {{verdict.verdict}}
+</div>
+}
+@else {
+<div *ngIf="loading" class="text-center mt-4">
+    <div class="spinner-border text-primary" role="status">
+    </div>
 </div>
 }

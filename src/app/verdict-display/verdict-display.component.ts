@@ -13,6 +13,7 @@ import { CommonModule } from "@angular/common";
 })
 export class VerdictDisplayComponent implements OnInit {
     verdict!: Verdict;
+    loading = false;
 
     constructor(private store: Store) {
     }
@@ -20,6 +21,10 @@ export class VerdictDisplayComponent implements OnInit {
     ngOnInit(): void {
         this.store.select(StreetMapState.verdict).subscribe(verdict => {
             this.verdict = verdict;
+        });
+
+        this.store.select(StreetMapState.loading).subscribe(loading => {
+            this.loading = loading;
         });
     }
 

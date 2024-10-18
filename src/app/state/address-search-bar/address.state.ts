@@ -20,6 +20,11 @@ export class AddressState {
     return state?.address;
   }
 
+  @Selector()
+  public static loading(state: AddressStateModel): any {
+    return state?.loading;
+  }
+
   constructor(private http: HttpClient) { }
 
   @Action(GetAddressInfo)
